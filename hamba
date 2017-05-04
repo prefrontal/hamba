@@ -68,11 +68,11 @@ config () {
     cat <<EOF
 global
   daemon
-  maxconn 256
+  maxconn 1024
 
 defaults
   mode tcp
-  timeout connect 5000ms
+  timeout connect 10000ms
   timeout client 50000ms
   timeout server 50000ms
 
@@ -81,6 +81,7 @@ frontend hamba-in
   default_backend hamba-out
 
 backend hamba-out
+  balance leastconn
 EOF
 
     # Now generate all the backend entries.
