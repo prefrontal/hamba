@@ -59,11 +59,19 @@ config () {
     # If the first parameter contains a colon,
     # assume that it's addr:port. Otherwise, assume
     # that it's just a port number and put * in front.
-    case "$1" in
-        *:*) BIND="$1" ;;
-        *) BIND="*:$1" ;;
-    esac
-
+    BIND=""
+    last_pos=$(( ${#LISTEN_PORTS[*]} - 1 ))
+    last_location=${LISTEN_PORTS[$last_pos]}
+    for location in "${LISTEN_PORTS[@]}"
+    do
+        case "$location" in
+            *:*) BIND+="  bind ${location}" ;;
+            *) BIND+="  bind *:${location}" ;;
+        esac
+        if [ "$location" != "$last_location" ]; then
+            BIND+=$'\n'
+        fi
+    done
     # Generate the global section of the config file.
     cat <<EOF
 global
@@ -77,7 +85,7 @@ defaults
   timeout server 50000ms
 
 frontend hamba-in
-  bind $BIND
+$BIND
   default_backend hamba-out
 
 backend hamba-out
