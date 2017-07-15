@@ -166,7 +166,7 @@ showconfig)
     echo "  hamba <run> [configuration...]"
     echo "  hamba <showconfig>"
     echo "  hamba <configuration...>"
-    echo "Configuration is:"
+    echo "Configuration is (frontend can be separated by ;):"
     echo "  [frontendaddr:]<frontendport> [backendaddr backendport] [...]"
     echo "  [frontendaddr:]<frontendport> [backendaddr:backendport] [...]"
     ;;
