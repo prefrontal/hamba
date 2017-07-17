@@ -69,6 +69,9 @@ config () {
             *:*) BIND+="  bind ${location}" ;;
             *) BIND+="  bind *:${location}" ;;
         esac
+        if [ "$location" = "443" ]; then 
+            BIND+=" ssl crt /etc/ssl/key.pem"
+        fi
         if [ "$location" != "$last_location" ]; then
             BIND+=$'\n'
         fi
