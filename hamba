@@ -89,6 +89,7 @@ defaults
   timeout server 50000ms
 
 frontend hamba-in
+  log global
 $BIND
   default_backend hamba-out
 
