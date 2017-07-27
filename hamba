@@ -83,13 +83,13 @@ global
   maxconn 1024
 
 defaults
-  mode tcp
+  mode http
   timeout connect 10000ms
   timeout client 50000ms
   timeout server 50000ms
 
 frontend hamba-in
-  log global
+  option forwardfor
 $BIND
   default_backend hamba-out
 
